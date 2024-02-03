@@ -9,10 +9,12 @@ public class GameWindow {
     public GameWindow(GamePanel gamePanel) {
         jFrame = new JFrame();
 
-        jFrame.setSize(400, 400);
         jFrame.setDefaultCloseOperation(3);
-        jFrame.setLocationRelativeTo(null);
+
         jFrame.add(gamePanel);
+        jFrame.pack();//this code like will make the JFrame Size same with its component
+        jFrame.setResizable(false);
+        jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
 
     }

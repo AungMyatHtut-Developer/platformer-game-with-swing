@@ -5,6 +5,8 @@ import amh.platformer.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static amh.platformer.util.Constants.Directions.*;
+
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gamePanel;
@@ -19,19 +21,23 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> gamePanel.changeYDelta(-5);//up
-            case KeyEvent.VK_S -> gamePanel.changeYDelta(5);//down
+            case KeyEvent.VK_W -> gamePanel.setDirection(UP);//up
+            case KeyEvent.VK_S -> gamePanel.setDirection(DOWN);//down
 
-            case KeyEvent.VK_A -> gamePanel.changeXDelta(-5);//back
-            case KeyEvent.VK_D -> gamePanel.changeXDelta(5);//front
+            case KeyEvent.VK_A -> gamePanel.setDirection(LEFT);//back
+            case KeyEvent.VK_D -> gamePanel.setDirection(RIGHT);//front
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W,
+                    KeyEvent.VK_A,
+                    KeyEvent.VK_S,
+                    KeyEvent.VK_D -> gamePanel.setMoving(false);
+        }
 
     }
 }
