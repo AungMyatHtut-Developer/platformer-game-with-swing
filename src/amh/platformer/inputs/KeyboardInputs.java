@@ -10,6 +10,7 @@ import static amh.platformer.util.Constants.Directions.*;
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gamePanel;
+
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
@@ -22,21 +23,40 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> gamePanel.setDirection(UP);//up
-            case KeyEvent.VK_S -> gamePanel.setDirection(DOWN);//down
-
-            case KeyEvent.VK_A -> gamePanel.setDirection(LEFT);//back
-            case KeyEvent.VK_D -> gamePanel.setDirection(RIGHT);//front
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
+                gamePanel.getGame().getPlayer().setUp(true);//
+                break;
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
+                gamePanel.getGame().getPlayer().setDown(true);//down
+                break;
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
+                gamePanel.getGame().getPlayer().setLeft(true);//back
+                break;
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
+                gamePanel.getGame().getPlayer().setRight(true);//front
+                break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W,
-                    KeyEvent.VK_A,
-                    KeyEvent.VK_S,
-                    KeyEvent.VK_D -> gamePanel.setMoving(false);
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP: gamePanel.getGame().getPlayer().setUp(false);break;
+
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT: gamePanel.getGame().getPlayer().setLeft(false);break;
+
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:gamePanel.getGame().getPlayer().setDown(false);break;
+
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:gamePanel.getGame().getPlayer().setRight(false);break;
+
         }
 
     }

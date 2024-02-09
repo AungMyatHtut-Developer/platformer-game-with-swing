@@ -1,6 +1,8 @@
 package amh.platformer;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class GameWindow {
 
@@ -12,10 +14,22 @@ public class GameWindow {
         jFrame.setDefaultCloseOperation(3);
 
         jFrame.add(gamePanel);
-        jFrame.pack();//this code like will make the JFrame Size same with its component
+        jFrame.pack();//will make the JFrame Size same with its component
         jFrame.setResizable(false);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
+
+        jFrame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                System.out.println("We manage you!");
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                gamePanel.getGame().windowFocusLost();
+            }
+        });
 
     }
 
