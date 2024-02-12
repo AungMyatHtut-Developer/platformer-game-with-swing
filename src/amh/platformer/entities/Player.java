@@ -1,14 +1,12 @@
 package amh.platformer.entities;
 
-import javax.imageio.ImageIO;
+import amh.platformer.util.LoadSave;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import static amh.platformer.util.Constants.Directions.*;
-import static amh.platformer.util.Constants.Directions.DOWN;
 import static amh.platformer.util.Constants.PlayerConstants.*;
+import static amh.platformer.util.LoadSave.getAtlas;
 
 public class Player extends Entity {
 
@@ -18,7 +16,7 @@ public class Player extends Entity {
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
     private boolean left, right, up, down;
-    private float playerMovingSpeed = 6.0f;
+    private float playerMovingSpeed = 2.0f;
 
     public Player(float x, float y) {
         super(x, y);
@@ -30,16 +28,12 @@ public class Player extends Entity {
         updatePosition();
         updateAnimation();
         setAnimation();
-
     }
 
     //load All Pirate Animations into Array
     private void loadPirateAnimation() {
 
-        InputStream inputStream = getClass().getResourceAsStream("/player_sprites.png");
-
-        try {
-            playerImage = ImageIO.read(inputStream);
+            playerImage = getAtlas(LoadSave.PLAYER_ATLAS);
 
             animations = new BufferedImage[9][6];
 
@@ -47,22 +41,10 @@ public class Player extends Entity {
                 for (int i = 0; i < animations[j].length; i++)
                     animations[j][i] = playerImage.getSubimage(i * 64, j * 40, 64, 40);
 
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 80, null);
-
     }
 
 
@@ -110,12 +92,18 @@ public class Player extends Entity {
     //update animation
     private void updateAnimation() {
         aniTick++;
+
+        if(playerAction == ATTACK_1){
+            aniSpeed = 3;
+        }
+
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= getSpriteAmounts(playerAction)){
                 aniIndex = 0;
                 attacking = false;
+                aniSpeed = 10;
             }
 
         }
@@ -139,22 +127,6 @@ public class Player extends Entity {
 
     public void setDown(boolean down) {
         this.down = down;
-    }
-
-    public boolean isLeft() {
-        return left;
-    }
-
-    public boolean isRight() {
-        return right;
-    }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public boolean isDown() {
-        return down;
     }
 
     public void resetDirBooleans() {

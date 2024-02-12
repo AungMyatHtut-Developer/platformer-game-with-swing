@@ -5,8 +5,6 @@ import amh.platformer.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static amh.platformer.util.Constants.Directions.*;
-
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gamePanel;
@@ -25,7 +23,7 @@ public class KeyboardInputs implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
-                gamePanel.getGame().getPlayer().setUp(true);//
+                gamePanel.getGame().getPlayer().setUp(true);//up
                 break;
             case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
@@ -56,8 +54,6 @@ public class KeyboardInputs implements KeyListener {
 
             case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:gamePanel.getGame().getPlayer().setRight(false);break;
-
         }
-
     }
 }

@@ -6,6 +6,9 @@ import amh.platformer.inputs.MouseInputs;
 import javax.swing.*;
 import java.awt.*;
 
+import static amh.platformer.Game.GAME_HEIGHT;
+import static amh.platformer.Game.GAME_WIDTH;
+
 public class GamePanel extends JPanel{
 
     private MouseInputs mouseInputs;
@@ -28,10 +31,6 @@ public class GamePanel extends JPanel{
         game.render(g);
     }
 
-    public void updateGame(){
-
-    }
-
     public Game getGame(){
         return this.game;
     }
@@ -41,7 +40,7 @@ public class GamePanel extends JPanel{
         // 1280/32 = 40 images wide
         // 800/32 = 25 images height
 
-        Dimension size = new Dimension(1280,800);
+        Dimension size = new Dimension(GAME_WIDTH,GAME_HEIGHT);
 
         setMinimumSize(size);
         setMaximumSize(size);
