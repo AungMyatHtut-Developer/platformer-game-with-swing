@@ -1,6 +1,7 @@
 package amh.platformer;
 
 import amh.platformer.entities.Player;
+import amh.platformer.level.LevelManager;
 
 import java.awt.*;
 
@@ -14,9 +15,10 @@ public class Game implements Runnable {
     private final int UPS_SET = 120;
 
     private Player player;
+    private LevelManager levelManager;
 
     public final static int DEFAULT_TILES_SIZE = 32;
-    public final static float SCALE = 1.0f;
+    public final static float SCALE = 2f;
     public final static int TILES_IN_WIDTH = 26;
     public final static int TILES_IN_HEIGHT = 14;
 
@@ -35,7 +37,9 @@ public class Game implements Runnable {
     }
 
     public void initClasses() {
-        player = new Player(200, 200);
+        player = new Player(200, 200,(int) (64 * SCALE), (int) (40 * SCALE));
+        levelManager = new LevelManager(this);
+
     }
 
     public void startTheGame() {
@@ -95,15 +99,17 @@ public class Game implements Runnable {
     }
 
     public void update() {
+        levelManager.update();
         player.update();
     }
 
     public void render(Graphics graphics) {
+        levelManager.draw(graphics);
         player.render(graphics);
     }
 
     public Player getPlayer() {
-        return this.player;
+        return player;
     }
 
     public void windowFocusLost(){

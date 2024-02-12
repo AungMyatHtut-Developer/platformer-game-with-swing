@@ -18,8 +18,8 @@ public class Player extends Entity {
     private boolean left, right, up, down;
     private float playerMovingSpeed = 2.0f;
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width,height);
 
         loadPirateAnimation();
     }
@@ -44,7 +44,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 80, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, width, height, null);
     }
 
 
