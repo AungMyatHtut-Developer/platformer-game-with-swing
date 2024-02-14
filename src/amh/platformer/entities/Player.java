@@ -17,6 +17,7 @@ public class Player extends Entity {
     private boolean moving = false, attacking = false;
     private boolean left, right, up, down;
     private float playerMovingSpeed = 2.0f;
+    private int[][] lvlData;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width,height);
@@ -111,6 +112,10 @@ public class Player extends Entity {
             }
 
         }
+    }
+
+    public void loadLvlData(int[][] lvlData){
+        this.lvlData = lvlData;
     }
 
     public void setAttacking(boolean attacking){
