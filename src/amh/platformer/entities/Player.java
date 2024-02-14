@@ -26,8 +26,14 @@ public class Player extends Entity {
 
     public void update() {
         updatePosition();
+        updateHitBox();
         updateAnimation();
         setAnimation();
+    }
+
+    public void render(Graphics g) {
+        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, width, height, null);
+        drawHitBox(g);
     }
 
     //load All Pirate Animations into Array
@@ -43,9 +49,7 @@ public class Player extends Entity {
 
     }
 
-    public void render(Graphics g) {
-        g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, width, height, null);
-    }
+
 
 
     private void updatePosition(){

@@ -42,9 +42,12 @@ public class LoadSave {
         int[][] lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
         BufferedImage img = getAtlas(LEVEL_ONE_DATA);
 
+
+
         for(int j = 0; j < img.getHeight(); j++){
             for(int i = 0; i<img.getWidth(); i++){
                 Color color = new Color(img.getRGB(i,j));
+
                 int value = color.getRed();
                 if (value >= 48) {
                     value = 0;
@@ -54,7 +57,13 @@ public class LoadSave {
             }
         }
 
-        System.out.println(Arrays.toString(lvlData));
+        for(int j = 0; j< lvlData.length; j++){
+            for(int i =0; i< lvlData[j].length; i++){
+                System.out.print(lvlData[j][i]+" ");
+            }
+            System.out.println();
+        }
+
 
         return lvlData;
 

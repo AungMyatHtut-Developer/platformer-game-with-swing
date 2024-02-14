@@ -24,4 +24,5 @@ public class Main {
   - Making Dimension more precisely
   - Adding game levels and LevelManager
   - Adding levelSprite into Level Array
+  - Collision and Detection (Adding Hit Box on our character)
  */
