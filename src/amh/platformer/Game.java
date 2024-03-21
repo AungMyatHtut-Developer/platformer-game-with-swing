@@ -9,6 +9,7 @@ public class Game implements Runnable {
 
     //This is commit from dev branch
 	// This is commit from feature branch
+	// This is third commit from feature branch
 
     private GameWindow gameWindow;
     private GamePanel gamePanel;
