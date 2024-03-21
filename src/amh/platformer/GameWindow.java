@@ -6,6 +6,9 @@ import java.awt.event.WindowFocusListener;
 
 public class GameWindow {
 
+//new feature added from feature branch
+//added next feature and fixed
+
     private JFrame jFrame;
 
     public GameWindow(GamePanel gamePanel) {
