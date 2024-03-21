@@ -7,6 +7,8 @@ import java.awt.*;
 
 public class Game implements Runnable {
 
+    //This is commit from dev branch
+
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
