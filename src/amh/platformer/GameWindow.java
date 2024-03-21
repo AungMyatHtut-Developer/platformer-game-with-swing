@@ -7,6 +7,7 @@ import java.awt.event.WindowFocusListener;
 public class GameWindow {
 
 //new feature added from feature branch
+//added next feature
 
     private JFrame jFrame;
 
