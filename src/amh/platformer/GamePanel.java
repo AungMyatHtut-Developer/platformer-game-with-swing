@@ -10,6 +10,8 @@ public class GamePanel extends JPanel {
 
     private MouseHandler mouseHandler;
     private int xDelta = 0, yDelta = 0;
+    int frames = 0;
+    long lastChecked = 0;
 
     public GamePanel() {
         mouseHandler = new MouseHandler(this);
@@ -25,6 +27,13 @@ public class GamePanel extends JPanel {
 
         g.setColor(Color.BLACK);
         g.fillRect(xDelta, yDelta,200,100);
+
+        frames++;
+        if (System.currentTimeMillis() - lastChecked >= 1000) {
+            lastChecked = System.currentTimeMillis();
+            System.out.println("FPS : "+ frames);
+            frames = 0;
+        }
 
         repaint();
     }

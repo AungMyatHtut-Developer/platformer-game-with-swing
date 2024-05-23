@@ -14,6 +14,8 @@ public class Main {
   - Make Drawn Rectangle movable by using handlers
   - Drawing Basics Images and Shapes
   - Adding GameListeners (Mouse Inputs, Mouse Motion Inputs, KeyBoard Inputs)
+  - FPS introduce and How many frames in paintComponent?
+  -
   - Creating game loop by using repaint()
   - Refix game loop to become stable
   - Importing Sprites by using image.getSubImage()
