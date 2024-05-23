@@ -7,30 +7,14 @@ import java.awt.event.WindowFocusListener;
 public class GameWindow {
 
     private JFrame jFrame;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 300;
 
     public GameWindow(GamePanel gamePanel) {
         jFrame = new JFrame();
-
-        jFrame.setDefaultCloseOperation(3);
-
+        jFrame.setSize(WIDTH, HEIGHT);
         jFrame.add(gamePanel);
-        jFrame.pack();//will make the JFrame Size same with its component
-        jFrame.setResizable(false);
-        jFrame.setLocationRelativeTo(null);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
-
-        jFrame.addWindowFocusListener(new WindowFocusListener() {
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                System.out.println("We manage you!");
-            }
-
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                gamePanel.getGame().windowFocusLost();
-            }
-        });
-
     }
-
 }

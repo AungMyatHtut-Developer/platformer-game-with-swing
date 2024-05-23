@@ -6,8 +6,6 @@ public class Main {
     }
 }
 
-// test commit from dev branch
-
 /*
   - Build Needed Game Classes Game,GamePanel,GameWindow
   - Drawing Basics Images and Shapes
