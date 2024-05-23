@@ -11,6 +11,7 @@ public class Main {
   - Show Game Window
   - Draw Rectangle on Game Panel
   - Add Action Listeners on Game Panel (KeyListener, MouseListener, MouseMotionListener)
+  - Make Drawn Rectangle movable by using handlers
   - Drawing Basics Images and Shapes
   - Adding GameListeners (Mouse Inputs, Mouse Motion Inputs, KeyBoard Inputs)
   - Creating game loop by using repaint()
