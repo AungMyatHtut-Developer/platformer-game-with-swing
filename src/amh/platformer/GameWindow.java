@@ -14,6 +14,7 @@ public class GameWindow {
         jFrame = new JFrame();
         jFrame.setSize(WIDTH, HEIGHT);
         jFrame.add(gamePanel);
+        jFrame.setLocationRelativeTo(null); // this will show our game window in the center of the screen
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
     }

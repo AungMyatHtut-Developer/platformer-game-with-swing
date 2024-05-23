@@ -7,7 +7,10 @@ public class Main {
 }
 
 /*
-  - Build Needed Game Classes Game,GamePanel,GameWindow
+  - Build Needed Classes - Game,GamePanel,GameWindow
+  - Show Game Window
+  - Draw Rectangle on Game Panel
+  - Add Action Listeners on Game Panel (KeyListener, MouseListener, MouseMotionListener)
   - Drawing Basics Images and Shapes
   - Adding GameListeners (Mouse Inputs, Mouse Motion Inputs, KeyBoard Inputs)
   - Creating game loop by using repaint()
