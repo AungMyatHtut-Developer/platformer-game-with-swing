@@ -8,7 +8,7 @@ public class GameWindow {
 
     private JFrame jFrame;
     private static final int WIDTH = 700;
-    private static final int HEIGHT = 500;
+    private static final int HEIGHT = 700;
 
     public GameWindow(GamePanel gamePanel) {
         jFrame = new JFrame();

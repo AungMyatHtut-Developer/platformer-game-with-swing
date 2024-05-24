@@ -5,14 +5,19 @@ import amh.handler.MouseHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GamePanel extends JPanel {
 
     private MouseHandler mouseHandler;
     private float xDelta = 10, yDelta = 10;
-    private double xDir = 2, yDir = 2;
+    private double xDir = 5, yDir = 5;
     private Color color = new Color(12,210,12);
+    private Random random =  new Random();
+
+    List<MyRectangle> rectList = new ArrayList<>();
 
 
     public GamePanel() {
@@ -26,6 +31,12 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //Temp Rect
+        for (MyRectangle myRectangle : rectList) {
+            myRectangle.updateRect();
+            myRectangle.draw(g);
+        }
 
         updateRect();
         g.setColor(color);
@@ -46,6 +57,10 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void spawnRect(int x, int y) {
+        rectList.add(new MyRectangle(x,y));
+    }
+
     private Color getRandomColor() {
         Random random = new Random();
         short red = (short) random.nextInt(255);
@@ -62,9 +77,46 @@ public class GamePanel extends JPanel {
         this.yDelta+=value;
     }
 
-    public void changeRecPosition(int x, int y) {
-        this.xDelta = x;
-        this.yDelta = y;
+    public class MyRectangle{
+        int x,y,w,h;
+        int xDir = 5, yDir = 5;
+        Color color;
+
+        public MyRectangle(int x, int y) {
+            this.x = x;
+            this.y = y;
+            w = 10 + random.nextInt(70);
+            h = w;
+        }
+
+        public void updateRect() {
+            this.x += xDir;
+            this.y += yDir;
+
+            if ((x + w) > 700 || x < 0) {
+                xDir *= -1;
+                color = getNewColor();
+            }
+
+            if ((y + h) > 700 || y < 0) {
+                yDir *= -1;
+                color = getNewColor();
+            }
+        }
+
+        public Color getNewColor(){
+            int red = random.nextInt(255);
+            int green = random.nextInt(255);
+            int blue = random.nextInt(255);
+            return new Color(red, green, blue);
+        }
+
+        public void draw(Graphics g) {
+            g.setColor(color);
+            g.fillRect(x, y, w, h);
+        }
+
     }
+
 
 }
