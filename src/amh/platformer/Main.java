@@ -7,9 +7,15 @@ public class Main {
 }
 
 /*
-  - Build Needed Game Classes Game,GamePanel,GameWindow
+  - Build Needed Classes - Game,GamePanel,GameWindow
+  - Show Game Window
+  - Draw Rectangle on Game Panel
+  - Add Action Listeners on Game Panel (KeyListener, MouseListener, MouseMotionListener)
+  - Make Drawn Rectangle movable by using handlers
   - Drawing Basics Images and Shapes
   - Adding GameListeners (Mouse Inputs, Mouse Motion Inputs, KeyBoard Inputs)
+  - FPS introduce and How many frames in paintComponent?
+  -
   - Creating game loop by using repaint()
   - Refix game loop to become stable
   - Importing Sprites by using image.getSubImage()
