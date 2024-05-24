@@ -16,7 +16,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse Clicked");
+        gamePanel.shootBall();
     }
 
     @Override
@@ -46,6 +46,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-       gamePanel.changeRecPosition(e.getX(), e.getY());
+//       gamePanel.changeRecPosition(e.getX(), e.getY());
+        gamePanel.updateLinePointing(e.getX(), e.getY());
     }
 }
