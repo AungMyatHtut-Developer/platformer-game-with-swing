@@ -16,7 +16,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        gamePanel.spawnRect(e.getX(), e.getY());
     }
 
     @Override
@@ -39,7 +38,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        gamePanel.moveHeroByMouse(e.getX(), e.getY());
     }
 
     @Override
