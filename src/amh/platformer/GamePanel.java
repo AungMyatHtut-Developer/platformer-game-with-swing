@@ -5,13 +5,15 @@ import amh.handler.MouseHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class GamePanel extends JPanel {
 
     private MouseHandler mouseHandler;
-    private int xDelta = 0, yDelta = 0;
-    int frames = 0;
-    long lastChecked = 0;
+    private float xDelta = 10, yDelta = 10;
+    private double xDir = 2, yDir = 2;
+    private Color color = new Color(12,210,12);
+
 
     public GamePanel() {
         mouseHandler = new MouseHandler(this);
@@ -25,17 +27,31 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(xDelta, yDelta,200,100);
+        updateRect();
+        g.setColor(color);
+        g.fillRect((int) xDelta, (int) yDelta, 200, 5);
+    }
 
-        frames++;
-        if (System.currentTimeMillis() - lastChecked >= 1000) {
-            lastChecked = System.currentTimeMillis();
-            System.out.println("FPS : "+ frames);
-            frames = 0;
+    private void updateRect() {
+        xDelta+=xDir;
+        if(xDelta > 200 || xDelta < 10){
+            xDir *= -1;
+            color = getRandomColor();
         }
 
-        repaint();
+        yDelta+=yDir;
+        if (yDelta > 500 || yDelta < 10) {
+            yDir *= -1;
+            color = getRandomColor();
+        }
+    }
+
+    private Color getRandomColor() {
+        Random random = new Random();
+        short red = (short) random.nextInt(255);
+        short green = (short) random.nextInt(255);
+        short blue = (short) random.nextInt(255);
+        return new Color(red, green, blue);
     }
 
     public void changeXDelta(int value){
