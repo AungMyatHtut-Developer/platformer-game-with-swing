@@ -18,4 +18,5 @@ public class Main {
   - Create Stable Game Loop with FPS 120 and monitor FPS
   - Add random rectangles
   - Make game window size to fit with JPanel and Import Image and Draw imported Image
+  - Add our Image into Animation array to show animation. And Make start idle animation for our hero
  */

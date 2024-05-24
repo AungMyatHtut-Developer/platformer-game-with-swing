@@ -19,11 +19,15 @@ public class GamePanel extends JPanel {
     private final short HEIGHT = 720;
 
     private BufferedImage image;
+    private BufferedImage [] idleAnimation;
+
+    private int aniSpeed = 20, aniTick, aniIndex;
 
     public GamePanel() {
         mouseHandler = new MouseHandler(this);
 
         importImage();
+        loadAnimation();
 
         addKeyListener(new KeyboardHandler(this));
         addMouseListener(mouseHandler);
@@ -52,12 +56,33 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void loadAnimation() {
+        idleAnimation = new BufferedImage[4];
+        for (int i = 0; i < idleAnimation.length; i++) {
+           idleAnimation[i] = image.getSubimage(i * 48, 48 * 3 ,48,48);
+        }
+    }
+
+    private void updateAnimation() {
+        aniTick++;
+        if (aniTick > aniSpeed) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= idleAnimation.length) {
+                aniIndex = 0;
+            }
+        }
+    }
+
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawImage(image.getSubimage(4 * 48 ,11 * 48,48 ,48), (int) xDelta, (int) yDelta,92,92, null);
+        updateAnimation();
+        g.drawImage(idleAnimation[aniIndex], (int) xDelta, (int) yDelta,92,92, null);
     }
+
 
     public void moveHero(int x, int y) {
         xDelta += x;
