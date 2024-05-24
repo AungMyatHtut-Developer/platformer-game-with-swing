@@ -15,7 +15,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        gamePanel.spawnRect(e.getX(), e.getY());
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {}

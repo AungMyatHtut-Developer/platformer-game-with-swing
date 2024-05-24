@@ -15,20 +15,7 @@ public class Main {
   - Drawing Basics Images and Shapes
   - Adding GameListeners (Mouse Inputs, Mouse Motion Inputs, KeyBoard Inputs)
   - FPS introduce and How many frames in paintComponent?
-  -
-  - Creating game loop by using repaint()
-  - Refix game loop to become stable
-  - Importing Sprites by using image.getSubImage()
-  - Adding Sprite Images into Arrays to make player animations
-  - Creating game constants
-  - Refix game loop by using stable nanoTime() and Separate FPS and UPS and use multithreading for game loops
-  - Connecting sprites with keyboard actions
-  - Refix lagging issue on keyboard actions
-  - Refix Tricky foolproof issues
-  - Separating Player Entity by extending from Entity Class and usage of abstract and protected
-  - Adding common image import method
-  - Making Dimension more precisely
-  - Adding game levels and LevelManager
-  - Adding levelSprite into Level Array
-  - Collision and Detection (Adding Hit Box on our character)
+  - Create Stable Game Loop with FPS 120 and monitor FPS
+  - Add random rectangles
+  - Draw Image
  */
