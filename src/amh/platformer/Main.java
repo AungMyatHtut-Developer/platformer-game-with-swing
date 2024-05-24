@@ -17,5 +17,5 @@ public class Main {
   - FPS introduce and How many frames in paintComponent?
   - Create Stable Game Loop with FPS 120 and monitor FPS
   - Add random rectangles
-  - Draw Image
+  - Make game window size to fit with JPanel and Import Image and Draw imported Image
  */
