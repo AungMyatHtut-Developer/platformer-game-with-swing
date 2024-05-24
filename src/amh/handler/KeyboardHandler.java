@@ -23,23 +23,19 @@ public class KeyboardHandler implements KeyListener {
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
-//                gamePanel.changeXDelta(5);
-                gamePanel.updateLineBase(10,0);
+                gamePanel.changeXDelta(5);
                 break;
                 //Left
             case KeyEvent.VK_A:
-//                gamePanel.changeXDelta(-5);
-                gamePanel.updateLineBase(-10, 0);
+                gamePanel.changeXDelta(-5);
                 break;
                 //UP
             case KeyEvent.VK_W:
-//                gamePanel.changeYDelta(-5);
-                gamePanel.updateLineBase(0, -10);
+                gamePanel.changeYDelta(-5);
                 break;
                 //Down
             case KeyEvent.VK_S:
-//                gamePanel.changeYDelta(5);
-                gamePanel.updateLineBase(0, 10);
+                gamePanel.changeYDelta(5);
                 break;
         }
     }
