@@ -4,6 +4,7 @@ import amh.platformer.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 
 import static amh.util.Constant.Directions.*;
 
@@ -39,6 +40,10 @@ public class KeyboardHandler implements KeyListener {
             case KeyEvent.VK_S:
                 gamePanel.setDirection(DOWN);
                 break;
+                //Climb UP
+            case KeyEvent.VK_E:
+                gamePanel.setClimbingDirection(UP);
+                break;
         }
     }
 
@@ -54,6 +59,10 @@ public class KeyboardHandler implements KeyListener {
             //Down
             case KeyEvent.VK_S:
                 gamePanel.setMoving(false);
+                break;
+            case KeyEvent.VK_E:
+                gamePanel.setClimbing(false);
+                break;
         }
     }
 }
