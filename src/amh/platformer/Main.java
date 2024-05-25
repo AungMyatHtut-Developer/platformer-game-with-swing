@@ -23,4 +23,5 @@ public class Main {
   - Show player animation based on actions and movements
   - Make to improve our game loop and Added pausing the game logic
   - Add Flip player animation
+  - Add Game Update Method separately and Create player class to become more assessable
  */
