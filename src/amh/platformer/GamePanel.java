@@ -11,9 +11,6 @@ public class GamePanel extends JPanel {
     private MouseHandler mouseHandler;
     private Game ourGame;
 
-    private final short WIDTH = 1440;
-    private final short HEIGHT = 720;
-
     public GamePanel(Game ourGame) {
         this.ourGame = ourGame;
 
@@ -26,7 +23,7 @@ public class GamePanel extends JPanel {
     }
 
     private void setGamePanelSize() {
-        Dimension gameDimension = new Dimension(WIDTH, HEIGHT);
+        Dimension gameDimension = new Dimension(Game.GAME_WIDTH, Game.GAME_HEIGHT);
         setMaximumSize(gameDimension);
         setPreferredSize(gameDimension);
         setMaximumSize(gameDimension);

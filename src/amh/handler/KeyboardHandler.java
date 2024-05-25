@@ -38,6 +38,9 @@ public class KeyboardHandler implements KeyListener {
             case KeyEvent.VK_S:
                 gamePanel.getOurGame().getPlayer().setDown(true);
                 break;
+            case KeyEvent.VK_SPACE:
+                gamePanel.getOurGame().getPlayer().isHurt(true);
+                break;
         }
     }
 
