@@ -81,7 +81,6 @@ public class Game implements Runnable {
     }
 
     public void pauseTheGame() {
-        System.out.println("Clicked pause button and isPaused " + isPause);
         isPause = !isPause;
         if (isPause) {
             gamePanel.repaint();

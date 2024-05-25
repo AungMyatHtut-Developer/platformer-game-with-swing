@@ -22,5 +22,5 @@ public class Main {
   - Add all player animations
   - Show player animation based on actions and movements
   - Make to improve our game loop and Added pausing the game logic
-  -
+  - Add Flip player animation
  */
