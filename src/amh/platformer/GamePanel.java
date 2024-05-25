@@ -2,7 +2,6 @@ package amh.platformer;
 
 import amh.handler.KeyboardHandler;
 import amh.handler.MouseHandler;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,10 +24,12 @@ public class GamePanel extends JPanel {
     private BufferedImage image;
     private BufferedImage [] [] animations;
 
-    private int aniSpeed = 25, aniTick, aniIndex;
+    // player animation
+    private int aniSpeed = 10, aniTick, aniIndex;
     private int playerAction = CLIMBING;
     private byte playerDir = -1;
     private boolean moving = false;
+    private boolean climbing = false;
 
     public GamePanel() {
         mouseHandler = new MouseHandler(this);
@@ -65,7 +66,6 @@ public class GamePanel extends JPanel {
 
     private void loadAnimation() {
         animations = new BufferedImage[12][8];
-        int length = animations.length;
         for (int i = 0; i < animations.length; i++) {
             for(int j = 0; j < animations[i].length ; j++){
                 animations[i][j] = image.getSubimage(j * 48, i * 48,48,48);
@@ -87,22 +87,39 @@ public class GamePanel extends JPanel {
     private void setAnimation() {
         if (moving) {
             playerAction = RUNNING;
-        }else{
-            playerAction = IDLE;
         }
 
+        if (climbing) {
+            playerAction = CLIMBING;
+        }
+
+        if(!moving && !climbing){
+            playerAction = IDLE;
+        }
     }
 
     private void updatePos() {
         if (moving) {
             switch (playerDir) {
-                case LEFT : xDelta -= 5;
+                case LEFT : xDelta -= 2;
                 break;
-                case UP: yDelta -= 5;
+                case UP: yDelta -= 2;
                 break;
-                case RIGHT: xDelta += 5;
+                case RIGHT: xDelta += 2;
                 break;
-                case DOWN: yDelta += 5;
+                case DOWN: yDelta += 2;
+            }
+        }
+
+        if (climbing) {
+            switch (playerDir) {
+                case LEFT : xDelta -= 2;
+                    break;
+                case UP: yDelta -= 2;
+                    break;
+                case RIGHT: xDelta += 2;
+                    break;
+                case DOWN: yDelta += 2;
             }
         }
     }
@@ -113,28 +130,24 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         updateAnimation();
-
         setAnimation();
         updatePos();
+
         g.drawImage(animations[playerAction][aniIndex], (int) xDelta, (int) yDelta,92,92, null);
-    }
-
-
-
-
-    public void moveHero(int x, int y) {
-        xDelta += x;
-        yDelta += y;
-    }
-
-    public void moveHeroByMouse(int x, int y) {
-        xDelta = x;
-        yDelta = y;
     }
 
     public void setDirection(byte direction) {
         playerDir = direction;
         moving = true;
+    }
+
+    public void setClimbingDirection(byte direction) {
+        playerDir = direction;
+        climbing = true;
+    }
+
+    public void setClimbing(boolean status) {
+        climbing = status;
     }
 
     public void setMoving(boolean status) {
