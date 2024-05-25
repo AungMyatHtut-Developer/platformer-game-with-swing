@@ -24,4 +24,8 @@ public class Main {
   - Make to improve our game loop and Added pausing the game logic
   - Add Flip player animation
   - Add Game Update Method separately and Create player class to become more assessable
+  - Update Player Movement by using boolean
+    Deals with loosing focus window error (While pressing d key, switch to other window by using alt+tab, player will go infinitive)
+    Fix attacking delays
+  -
  */

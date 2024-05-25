@@ -18,12 +18,17 @@ public class Player extends Character{
     private BufferedImage[][] playerAnimations;
 
     // player animation
+    private static final byte PLAYER_IMG_WIDTH = 92;
+    private static final byte PLAYER_IMG_HEIGHT = 92;
     private int aniSpeed = 10, aniTick, aniIndex;
     private int playerAction = CLIMBING;
-    private byte playerDir = -1;
-    private boolean moving = false;
+    private boolean isPlayerMovingRight = true;
+    private boolean moving = false, attack = false;
     private boolean climbing = false;
-    private boolean isFront = true;
+    private boolean left,up,right,down;
+    private float playerSpeed = 2.0f;
+    private byte attackNumber = 0;
+
 
 
     public Player(float x, float y) {
@@ -33,14 +38,30 @@ public class Player extends Character{
 
     @Override
     public void update() {
+        updatePosition();
         setAnimation();
         updateAnimation();
-        updatePos();
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y,92,92, null);
+        if (isPlayerMovingRight) {
+            // Draw original image
+            g.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y,PLAYER_IMG_WIDTH,PLAYER_IMG_HEIGHT, null);
+        }
+
+        if (!isPlayerMovingRight) {
+
+            Graphics2D g2D = (Graphics2D) g;
+
+            // Save the current transform
+            g2D.translate((int) x + PLAYER_IMG_WIDTH / 2, (int) y + PLAYER_IMG_HEIGHT / 2);
+            g2D.scale(-1, 1); // Flip horizontally
+            g2D.translate(-(int) x - PLAYER_IMG_WIDTH / 2, -(int) y - PLAYER_IMG_HEIGHT / 2);
+
+            // Draw the flipped image
+            g2D.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
+        }
     }
 
     @Override
@@ -71,56 +92,112 @@ public class Player extends Character{
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= GetSpriteAmount(playerAction)) {
+                attack = false;
                 aniIndex = 0;
             }
         }
     }
 
     private void setAnimation() {
+        int startAnimation = playerAction;
+
+        aniSpeed = 10;
+
         if (moving) {
             playerAction = RUNNING;
+            aniSpeed = 5;
         }
 
         if (climbing) {
             playerAction = CLIMBING;
+            aniSpeed = 10;
         }
 
         if(!moving && !climbing){
             playerAction = IDLE;
         }
-    }
 
-    private void updatePos() {
-        if (moving && !climbing) {
-            switch (playerDir) {
-                case LEFT :
-                    x -= 2;
-                    isFront = false;
-                    break;
-                case UP: y -= 2;
-                    break;
-                case RIGHT: x += 2;
-                    isFront = true;
-                    break;
-                case DOWN: y += 2;
-            }
+        if (attack && attackNumber == 1) {
+            playerAction = ATTACK_1;
+            aniSpeed = 2;
         }
 
-        if (climbing && !moving) {
-            switch (playerDir) {
-                case UP: x -= 2;
-                    break;
-                case DOWN: y += 2;
-            }
+        if (attack && attackNumber == 2) {
+            playerAction = ATTACK_2;
+            aniSpeed = 2;
+        }
+
+        if (startAnimation != playerAction) {
+            resetAnimationTick();
         }
     }
 
-    public void setDirection(byte direction) {
-        playerDir = direction;
-        moving = true;
+    private void resetAnimationTick() {
+        aniTick = 0;
+        aniIndex = 0;
     }
 
-    public void setMoving(boolean status) {
-        moving = status;
+    private void updatePosition() {
+
+        moving = false;
+        climbing = false;
+
+        if( (left && up)  || (left && down)){
+            x-=playerSpeed;
+            climbing = true;
+        } else if ((right && up) || (right && down)) {
+            x+=playerSpeed;
+            climbing = true;
+        }
+
+        if (left && !right && !down && !up) {
+            x-= (playerSpeed * 2);
+            moving = true;
+            isPlayerMovingRight = false;
+        } else if (right && !left && !down && !up) {
+            x+= (playerSpeed * 2);
+            moving = true;
+            isPlayerMovingRight = true;
+        }
+
+        if (up && !down && !right && !left) {
+            y-=playerSpeed;
+            climbing = true;
+        } else if (down && !up && !right && !left) {
+            y+=playerSpeed;
+            climbing = true;
+        }
+    }
+
+    public void setAttack(boolean attack, byte attackNumber) {
+        this.attack = attack;
+        this.attackNumber = attackNumber;
+        aniIndex = 0;
+        aniTick = 0;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public void stopActions() {
+        moving = false;
+        climbing = false;
+        left = false;
+        right = false;
+        up = false;
+        down = false;
     }
 }
