@@ -17,5 +17,16 @@ public class GameWindow {
         jFrame.pack(); //Causes this Window to be sized to fit the preferred size and layouts of its subcomponents
         jFrame.setLocationRelativeTo(null); // this will show our game window in the center of the screen
         jFrame.setVisible(true);
+        jFrame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                System.out.println("Got Focus Back!");
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+               gamePanel.getOurGame().windowFocusLost();
+            }
+        });
     }
 }

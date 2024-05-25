@@ -16,6 +16,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON1)
+            gamePanel.getOurGame().getPlayer().setAttack(true, (byte) 1);
+        else if (e.getButton() == MouseEvent.BUTTON3)
+            gamePanel.getOurGame().getPlayer().setAttack(true, (byte) 2);
     }
 
     @Override
@@ -23,7 +27,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override

@@ -24,26 +24,19 @@ public class KeyboardHandler implements KeyListener {
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
-                gamePanel.getOurGame().getPlayer().setDirection(RIGHT);
+                gamePanel.getOurGame().getPlayer().setRight(true);
                 break;
-                //Left
+            //Left
             case KeyEvent.VK_A:
-                gamePanel.getOurGame().getPlayer().setDirection(LEFT);
+                gamePanel.getOurGame().getPlayer().setLeft(true);
                 break;
-                //UP
+            //UP
             case KeyEvent.VK_W:
-                gamePanel.getOurGame().getPlayer().setDirection(UP);
+                gamePanel.getOurGame().getPlayer().setUp(true);
                 break;
-                //Down
+            //Down
             case KeyEvent.VK_S:
-                gamePanel.getOurGame().getPlayer().setDirection(DOWN);
-                break;
-                //Climb UP
-            case KeyEvent.VK_E:
-//                gamePanel.getOurGame().getPlayer().setCl(UP);
-                break;
-            case KeyEvent.VK_P:
-                gamePanel.getOurGame().pauseTheGame();
+                gamePanel.getOurGame().getPlayer().setDown(true);
                 break;
         }
     }
@@ -53,16 +46,19 @@ public class KeyboardHandler implements KeyListener {
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
+                gamePanel.getOurGame().getPlayer().setRight(false);
+                break;
             //Left
             case KeyEvent.VK_A:
+                gamePanel.getOurGame().getPlayer().setLeft(false);
+                break;
             //UP
             case KeyEvent.VK_W:
+                gamePanel.getOurGame().getPlayer().setUp(false);
+                break;
             //Down
             case KeyEvent.VK_S:
-                gamePanel.getOurGame().getPlayer().setMoving(false);
-                break;
-            case KeyEvent.VK_E:
-//                gamePanel.setClimbing(false);
+                gamePanel.getOurGame().getPlayer().setDown(false);
                 break;
         }
     }
