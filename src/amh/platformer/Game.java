@@ -1,10 +1,15 @@
 package amh.platformer;
 
+import amh.character.Player;
+
+import java.awt.*;
+
 public class Game implements Runnable {
 
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
+    private Player player;
 
     private boolean isGameRunning = true;
     private boolean isPause = false;
@@ -12,6 +17,8 @@ public class Game implements Runnable {
     private final short UPS = 120;
 
     public Game() {
+        initCharacters();
+
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus(true);
@@ -19,9 +26,21 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
+    private void initCharacters() {
+        player = new Player(20, 20);
+    }
+
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    private void update() {
+        player.update();
+    }
+
+    public void render(Graphics graphics) {
+        player.render(graphics);
     }
 
     @Override
@@ -54,7 +73,7 @@ public class Game implements Runnable {
 
                 // Perform game state updates
                 if (updateDelta >= 1) {
-                    // update(); // Update game logic
+                    update(); // Update game logic
                     updateCount++;
                     updateDelta--;
                 }
@@ -89,5 +108,9 @@ public class Game implements Runnable {
 
     public boolean isGamePaused() {
         return isPause;
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }

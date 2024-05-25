@@ -24,23 +24,23 @@ public class KeyboardHandler implements KeyListener {
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
-                gamePanel.setDirection(RIGHT);
+                gamePanel.getOurGame().getPlayer().setDirection(RIGHT);
                 break;
                 //Left
             case KeyEvent.VK_A:
-                gamePanel.setDirection(LEFT);
+                gamePanel.getOurGame().getPlayer().setDirection(LEFT);
                 break;
                 //UP
             case KeyEvent.VK_W:
-                gamePanel.setDirection(UP);
+                gamePanel.getOurGame().getPlayer().setDirection(UP);
                 break;
                 //Down
             case KeyEvent.VK_S:
-                gamePanel.setDirection(DOWN);
+                gamePanel.getOurGame().getPlayer().setDirection(DOWN);
                 break;
                 //Climb UP
             case KeyEvent.VK_E:
-                gamePanel.setClimbingDirection(UP);
+//                gamePanel.getOurGame().getPlayer().setCl(UP);
                 break;
             case KeyEvent.VK_P:
                 gamePanel.getOurGame().pauseTheGame();
@@ -59,10 +59,10 @@ public class KeyboardHandler implements KeyListener {
             case KeyEvent.VK_W:
             //Down
             case KeyEvent.VK_S:
-                gamePanel.setMoving(false);
+                gamePanel.getOurGame().getPlayer().setMoving(false);
                 break;
             case KeyEvent.VK_E:
-                gamePanel.setClimbing(false);
+//                gamePanel.setClimbing(false);
                 break;
         }
     }
