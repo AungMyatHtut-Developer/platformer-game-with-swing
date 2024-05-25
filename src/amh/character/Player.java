@@ -1,17 +1,14 @@
 package amh.character;
 
-import javax.imageio.ImageIO;
+import amh.util.SpriteLoader;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import static amh.util.Constant.Directions.*;
-import static amh.util.Constant.Directions.DOWN;
 import static amh.util.Constant.PlayerConstant.*;
 import static amh.util.Constant.PlayerConstant.IDLE;
 
-public class Player extends Character{
+public class Player extends Character {
 
     private float x;
     private float y;
@@ -23,12 +20,12 @@ public class Player extends Character{
     private int aniSpeed = 10, aniTick, aniIndex;
     private int playerAction = CLIMBING;
     private boolean isPlayerMovingRight = true;
-    private boolean moving = false, attack = false;
+    private boolean moving = false, attack = false, isHurt = false;
     private boolean climbing = false;
-    private boolean left,up,right,down;
+    private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
     private byte attackNumber = 0;
-
+    private byte hurtTime = 0;
 
 
     public Player(float x, float y) {
@@ -47,7 +44,7 @@ public class Player extends Character{
     public void render(Graphics g) {
         if (isPlayerMovingRight) {
             // Draw original image
-            g.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y,PLAYER_IMG_WIDTH,PLAYER_IMG_HEIGHT, null);
+            g.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
         }
 
         if (!isPlayerMovingRight) {
@@ -61,28 +58,21 @@ public class Player extends Character{
 
             // Draw the flipped image
             g2D.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
+
+            // Reset transform
+            g2D.setTransform(g2D.getDeviceConfiguration().getDefaultTransform());
         }
     }
 
     @Override
     public void loadAnimations() {
-        try (InputStream inputStream = getClass().getResourceAsStream("/img/myhero.png")){
-            if (inputStream == null) {
-                throw new IOException("Image not found!");
+        BufferedImage playerImage = SpriteLoader.getSprite(SpriteLoader.PLAYER_ATLAS);
+
+        playerAnimations = new BufferedImage[12][8];
+        for (int i = 0; i < playerAnimations.length; i++) {
+            for (int j = 0; j < playerAnimations[i].length; j++) {
+                playerAnimations[i][j] = playerImage.getSubimage(j * 48, i * 48, 48, 48);
             }
-
-            BufferedImage playerImage = ImageIO.read(inputStream);
-            System.out.println("We found the image");
-
-            playerAnimations = new BufferedImage[12][8];
-            for (int i = 0; i < playerAnimations.length; i++) {
-                for(int j = 0; j < playerAnimations[i].length ; j++){
-                    playerAnimations[i][j] = playerImage.getSubimage(j * 48, i * 48,48,48);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -94,6 +84,8 @@ public class Player extends Character{
             if (aniIndex >= GetSpriteAmount(playerAction)) {
                 attack = false;
                 aniIndex = 0;
+                hurtTime = 0;
+                isHurt = false;
             }
         }
     }
@@ -113,7 +105,7 @@ public class Player extends Character{
             aniSpeed = 10;
         }
 
-        if(!moving && !climbing){
+        if (!moving && !climbing) {
             playerAction = IDLE;
         }
 
@@ -125,6 +117,11 @@ public class Player extends Character{
         if (attack && attackNumber == 2) {
             playerAction = ATTACK_2;
             aniSpeed = 2;
+        }
+
+        if (isHurt) {
+            playerAction = HURT;
+            aniSpeed = 20;
         }
 
         if (startAnimation != playerAction) {
@@ -142,29 +139,29 @@ public class Player extends Character{
         moving = false;
         climbing = false;
 
-        if( (left && up)  || (left && down)){
-            x-=playerSpeed;
+        if ((left && up) || (left && down)) {
+            x -= playerSpeed;
             climbing = true;
         } else if ((right && up) || (right && down)) {
-            x+=playerSpeed;
+            x += playerSpeed;
             climbing = true;
         }
 
-        if (left && !right && !down && !up) {
-            x-= (playerSpeed * 2);
+        if (left && !right && !down && !up && !isHurt) {
+            x -= (playerSpeed * 2);
             moving = true;
             isPlayerMovingRight = false;
-        } else if (right && !left && !down && !up) {
-            x+= (playerSpeed * 2);
+        } else if (right && !left && !down && !up && !isHurt) {
+            x += (playerSpeed * 2);
             moving = true;
             isPlayerMovingRight = true;
         }
 
         if (up && !down && !right && !left) {
-            y-=playerSpeed;
+            y -= playerSpeed;
             climbing = true;
         } else if (down && !up && !right && !left) {
-            y+=playerSpeed;
+            y += playerSpeed;
             climbing = true;
         }
     }
@@ -199,5 +196,9 @@ public class Player extends Character{
         right = false;
         up = false;
         down = false;
+    }
+
+    public void isHurt(boolean isHurt) {
+        this.isHurt = isHurt;
     }
 }

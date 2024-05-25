@@ -1,6 +1,7 @@
 package amh.platformer;
 
 import amh.character.Player;
+import amh.levels.LevelManager;
 
 import java.awt.*;
 
@@ -10,11 +11,20 @@ public class Game implements Runnable {
     private GamePanel gamePanel;
     private Thread gameThread;
     private Player player;
+    private LevelManager levelManager;
 
     private boolean isGameRunning = true;
     private boolean isPause = false;
     private final byte FPS = 60;
     private final short UPS = 120;
+
+    public static final int DEFAULT_TILE_SIZE = 32;
+    public static final float SCALE = 1.5f;
+    public static final int TOTAL_TILES_IN_WIDTH = 25;
+    public static final int TOTAL_TILES_IN_HEIGHT = 15;
+    public static final int TILE_SIZE = (int) (DEFAULT_TILE_SIZE * SCALE);
+    public static final int GAME_WIDTH = TOTAL_TILES_IN_WIDTH * TILE_SIZE;
+    public static final int GAME_HEIGHT = TOTAL_TILES_IN_HEIGHT * TILE_SIZE;
 
     public Game() {
         initCharacters();
@@ -28,6 +38,7 @@ public class Game implements Runnable {
 
     private void initCharacters() {
         player = new Player(20, 20);
+        levelManager = new LevelManager(this);
     }
 
     private void startGameLoop() {
@@ -37,9 +48,11 @@ public class Game implements Runnable {
 
     private void update() {
         player.update();
+        levelManager.update();
     }
 
     public void render(Graphics graphics) {
+        levelManager.draw(graphics);
         player.render(graphics);
     }
 
