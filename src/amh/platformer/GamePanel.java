@@ -16,6 +16,7 @@ import static amh.util.Constant.PlayerConstant.*;
 public class GamePanel extends JPanel {
 
     private MouseHandler mouseHandler;
+    private Game ourGame;
     private float xDelta = 10, yDelta = 10;
 
     private final short WIDTH = 1440;
@@ -31,9 +32,10 @@ public class GamePanel extends JPanel {
     private boolean moving = false;
     private boolean climbing = false;
 
-    public GamePanel() {
+    public GamePanel(Game ourGame) {
         mouseHandler = new MouseHandler(this);
 
+        this.ourGame = ourGame;
         importImage();
         loadAnimation();
 
@@ -99,7 +101,7 @@ public class GamePanel extends JPanel {
     }
 
     private void updatePos() {
-        if (moving) {
+        if (moving && !climbing) {
             switch (playerDir) {
                 case LEFT : xDelta -= 2;
                 break;
@@ -111,14 +113,10 @@ public class GamePanel extends JPanel {
             }
         }
 
-        if (climbing) {
+        if (climbing && !moving) {
             switch (playerDir) {
-                case LEFT : xDelta -= 2;
-                    break;
                 case UP: yDelta -= 2;
-                    break;
-                case RIGHT: xDelta += 2;
-                    break;
+                break;
                 case DOWN: yDelta += 2;
             }
         }
@@ -132,6 +130,14 @@ public class GamePanel extends JPanel {
         updateAnimation();
         setAnimation();
         updatePos();
+
+        System.out.println("Is Game paused : "+this.ourGame.isGamePaused());
+        if (this.ourGame.isGamePaused()) {
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            g.setColor(Color.RED);
+            g.drawString("PAUSED", getWidth() /2 - 50, getHeight()/2);
+        }
+
 
         g.drawImage(animations[playerAction][aniIndex], (int) xDelta, (int) yDelta,92,92, null);
     }
@@ -152,6 +158,10 @@ public class GamePanel extends JPanel {
 
     public void setMoving(boolean status) {
         moving = status;
+    }
+
+    public Game getOurGame() {
+        return ourGame;
     }
 
 }

@@ -21,4 +21,6 @@ public class Main {
   - Add our Image into Animation array to show animation. And Make start idle animation for our hero
   - Add all player animations
   - Show player animation based on actions and movements
+  - Make to improve our game loop and Added pausing the game logic
+  -
  */

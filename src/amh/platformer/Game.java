@@ -7,10 +7,12 @@ public class Game implements Runnable {
     private Thread gameThread;
 
     private boolean isGameRunning = true;
-    private final byte FPS = 120;
+    private boolean isPause = false;
+    private final byte FPS = 60;
+    private final short UPS = 120;
 
     public Game() {
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus(true);
 
@@ -24,33 +26,69 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+        // Frames Per Second (FPS)
+        double timePerFrame = 1_000_000_000.0 / FPS; // Time per frame in nanoseconds
+        long frameCountStartTime = System.currentTimeMillis(); // Start time for counting frames
+        long frameCount = 0; // Number of frames rendered
 
-        double timePerFrame = 1_000_000_000.0 / FPS;
-        long lastCheck = System.nanoTime();
-        long now = 0;
+        // Updates Per Second (UPS)
+        double timePerUpdate = 1_000_000_000.0 / UPS; // Time per update in nanoseconds
+        long lastUpdateTime = System.nanoTime(); // Last recorded time for updates and frames
 
-        long lastCheckForFPS = 0;
-        long frames = 0;
+        long updateCount = 0; // Number of updates
+        double updateDelta = 0; // Time delta for updates
+        double frameDelta = 0; // Time delta for frames
 
-        // create game loop
+        int count = 0;
+
+        // Main game loop
         while (isGameRunning) {
+            if (!isPause) {
 
-            // render the frames
-            now = System.nanoTime();
-            if(now - lastCheck >= timePerFrame){
-                gamePanel.repaint();
-                lastCheck = now;
-                frames++;
+                long currentTime = System.nanoTime(); // Current time in nanoseconds
+
+                // Calculate time delta for updates and frames
+                updateDelta += (currentTime - lastUpdateTime) / timePerUpdate;
+                frameDelta += (currentTime - lastUpdateTime) / timePerFrame;
+                lastUpdateTime = currentTime;
+
+                // Perform game state updates
+                if (updateDelta >= 1) {
+                    // update(); // Update game logic
+                    updateCount++;
+                    updateDelta--;
+                }
+
+                // Render the frames
+                if (frameDelta >= 1) {
+                    gamePanel.repaint(); // Render the game frame
+                    frameCount++;
+                    frameDelta--;
+                }
+
+                // Monitor the FPS and UPS every second
+                if (System.currentTimeMillis() - frameCountStartTime >= 1_000) {
+                    System.out.println("FPS: " + frameCount + " | UPS: " + updateCount);
+                    frameCountStartTime = System.currentTimeMillis();
+                    frameCount = 0;
+                    updateCount = 0;
+                }
+            } else {
+                lastUpdateTime = System.nanoTime();
             }
-
-            // monitor the FPS
-            if (System.currentTimeMillis() - lastCheckForFPS >= 1_000) {
-                System.out.println("FPS : "+ frames);
-                lastCheckForFPS = System.currentTimeMillis();
-                frames = 0;
-            }
-
         }
 
+    }
+
+    public void pauseTheGame() {
+        System.out.println("Clicked pause button and isPaused " + isPause);
+        isPause = !isPause;
+        if (isPause) {
+            gamePanel.repaint();
+        }
+    }
+
+    public boolean isGamePaused() {
+        return isPause;
     }
 }

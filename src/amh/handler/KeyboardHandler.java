@@ -17,9 +17,7 @@ public class KeyboardHandler implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.printf("User typed %s key \n",e.getKeyChar());
-    }
+    public void keyTyped(KeyEvent e) {    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -43,6 +41,9 @@ public class KeyboardHandler implements KeyListener {
                 //Climb UP
             case KeyEvent.VK_E:
                 gamePanel.setClimbingDirection(UP);
+                break;
+            case KeyEvent.VK_P:
+                gamePanel.getOurGame().pauseTheGame();
                 break;
         }
     }
