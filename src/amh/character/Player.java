@@ -97,7 +97,7 @@ public class Player extends Character {
 
         if (moving) {
             playerAction = RUNNING;
-            aniSpeed = 5;
+            aniSpeed = 7;
         }
 
         if (climbing) {
@@ -111,17 +111,17 @@ public class Player extends Character {
 
         if (attack && attackNumber == 1) {
             playerAction = ATTACK_1;
-            aniSpeed = 2;
+            aniSpeed = 3;
         }
 
         if (attack && attackNumber == 2) {
             playerAction = ATTACK_2;
-            aniSpeed = 2;
+            aniSpeed = 3;
         }
 
         if (isHurt) {
             playerAction = HURT;
-            aniSpeed = 20;
+            aniSpeed = 25;
         }
 
         if (startAnimation != playerAction) {
@@ -148,11 +148,11 @@ public class Player extends Character {
         }
 
         if (left && !right && !down && !up && !isHurt) {
-            x -= (playerSpeed * 2);
+            x -= (playerSpeed);
             moving = true;
             isPlayerMovingRight = false;
         } else if (right && !left && !down && !up && !isHurt) {
-            x += (playerSpeed * 2);
+            x += (playerSpeed);
             moving = true;
             isPlayerMovingRight = true;
         }

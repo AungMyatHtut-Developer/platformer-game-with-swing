@@ -12,6 +12,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private Player player;
     private LevelManager levelManager;
+    private byte currentLevel = 2;
 
     private boolean isGameRunning = true;
     private boolean isPause = false;
@@ -38,7 +39,7 @@ public class Game implements Runnable {
 
     private void initCharacters() {
         player = new Player(20, 20);
-        levelManager = new LevelManager(this);
+        levelManager = new LevelManager(this, currentLevel);
     }
 
     private void startGameLoop() {
@@ -70,8 +71,6 @@ public class Game implements Runnable {
         long updateCount = 0; // Number of updates
         double updateDelta = 0; // Time delta for updates
         double frameDelta = 0; // Time delta for frames
-
-        int count = 0;
 
         // Main game loop
         while (isGameRunning) {

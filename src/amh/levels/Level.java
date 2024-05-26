@@ -2,13 +2,11 @@ package amh.levels;
 
 public class Level {
 
-    private int [][] levelData;
-
-    public Level(int [][] levelData) {
-        this.levelData = levelData;
-    }
-
-    public int getSpriteIndex(int x, int y) {
-        return levelData[y][x];
+    public static int[] getLevelData(byte levelNumber) {
+        switch (levelNumber) {
+            case 2: return LevelConstants.LEVEL_TWO;
+            default:
+                return LevelConstants.LEVEL_ONE;
+        }
     }
 }

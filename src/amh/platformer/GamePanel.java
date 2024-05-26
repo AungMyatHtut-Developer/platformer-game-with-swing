@@ -24,6 +24,7 @@ public class GamePanel extends JPanel {
 
     private void setGamePanelSize() {
         Dimension gameDimension = new Dimension(Game.GAME_WIDTH, Game.GAME_HEIGHT);
+        System.out.println("Game Width : "+ Game.GAME_WIDTH + " Game Height : "+ Game.GAME_HEIGHT);
         setMaximumSize(gameDimension);
         setPreferredSize(gameDimension);
         setMaximumSize(gameDimension);
@@ -40,30 +41,6 @@ public class GamePanel extends JPanel {
         }
 
         ourGame.render(g);
-
-//        if(isFront){
-//            g.drawImage(animations[playerAction][aniIndex], (int) xDelta, (int) yDelta,92,92, null);
-//        }
-
-//        if (!isFront) {
-//            Graphics2D g2d = (Graphics2D) g;
-//
-//            // Flip image horizontally
-//            int imgWidth = 92;
-//            int imgHeight = 92;
-//            BufferedImage image = animations[playerAction][aniIndex];
-//
-//            // Save the current transform
-//            g2d.translate((int) xDelta + imgWidth / 2, (int) yDelta + imgHeight / 2);
-//            g2d.scale(-1, 1); // Flip horizontally
-//            g2d.translate(-(int) xDelta - imgWidth / 2, -(int) yDelta - imgHeight / 2);
-//
-//            // Draw the flipped image
-//            g2d.drawImage(image, (int) xDelta, (int) yDelta, imgWidth, imgHeight, null);
-//
-//            // Reset transform
-//            g2d.setTransform(g2d.getDeviceConfiguration().getDefaultTransform());
-//        }
     }
 
     public Game getOurGame() {

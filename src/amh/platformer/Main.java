@@ -28,6 +28,6 @@ public class Main {
     Deals with loosing focus window error (While pressing d key, switch to other window by using alt+tab, player will go infinitive)
     Fix attacking delays
   - Make CommonLoadSave Class for image resources. Create Game levels and Level Manager
-    Load Level Image Data and render the level data
+    Load Level Image Data and render the level data (used tiled to build levels)
 
  */
