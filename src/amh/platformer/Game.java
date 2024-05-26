@@ -12,7 +12,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private Player player;
     private LevelManager levelManager;
-    private byte currentLevel = 2;
+    private byte currentLevel = 1;
 
     private boolean isGameRunning = true;
     private boolean isPause = false;
@@ -38,8 +38,9 @@ public class Game implements Runnable {
     }
 
     private void initCharacters() {
-        player = new Player(20, 20);
         levelManager = new LevelManager(this, currentLevel);
+        player = new Player(200, 300);
+        player.loadLevelData(levelManager.getCurrentLevelData());
     }
 
     private void startGameLoop() {
@@ -49,7 +50,7 @@ public class Game implements Runnable {
 
     private void update() {
         player.update();
-        levelManager.update();
+        levelManager.update(currentLevel);
     }
 
     public void render(Graphics graphics) {
@@ -128,5 +129,19 @@ public class Game implements Runnable {
 
     public void windowFocusLost() {
         player.stopActions();
+    }
+
+    public void changeLevel() {
+        if (currentLevel == 1) {
+            currentLevel = 2;
+            levelManager.update(currentLevel);
+        } else {
+            currentLevel = 1;
+            levelManager.update(currentLevel);
+        }
+
+        player.loadLevelData(levelManager.getCurrentLevelData());
+
+        System.out.println(currentLevel);
     }
 }

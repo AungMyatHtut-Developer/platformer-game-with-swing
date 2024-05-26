@@ -29,5 +29,5 @@ public class Main {
     Fix attacking delays
   - Make CommonLoadSave Class for image resources. Create Game levels and Level Manager
     Load Level Image Data and render the level data (used tiled to build levels)
-
+  - Add HitBox for player and add collision and detection function
  */

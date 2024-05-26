@@ -21,6 +21,7 @@ public class KeyboardHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println("Kep Press Work");
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
@@ -40,6 +41,9 @@ public class KeyboardHandler implements KeyListener {
                 break;
             case KeyEvent.VK_SPACE:
                 gamePanel.getOurGame().getPlayer().isHurt(true);
+                break;
+            case KeyEvent.VK_C:
+                gamePanel.getOurGame().changeLevel();
                 break;
         }
     }

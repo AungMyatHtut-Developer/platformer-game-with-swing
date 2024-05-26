@@ -21,6 +21,7 @@ public class GameWindow {
             @Override
             public void windowGainedFocus(WindowEvent e) {
                 System.out.println("Got Focus Back!");
+                gamePanel.requestFocusInWindow();
             }
 
             @Override

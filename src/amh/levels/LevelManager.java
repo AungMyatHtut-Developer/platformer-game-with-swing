@@ -42,7 +42,11 @@ public class LevelManager {
         }
     }
 
-    public void update() {
+    public void update(byte levelNumber) {
+        currentLevel = Level.getLevelData(levelNumber);
+    }
 
+    public int[] getCurrentLevelData() {
+        return this.currentLevel;
     }
 }

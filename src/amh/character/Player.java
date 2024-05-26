@@ -1,5 +1,8 @@
 package amh.character;
 
+import amh.levels.LevelManager;
+import amh.platformer.Game;
+import amh.util.HelperMethods;
 import amh.util.SpriteLoader;
 
 import java.awt.*;
@@ -7,16 +10,15 @@ import java.awt.image.BufferedImage;
 
 import static amh.util.Constant.PlayerConstant.*;
 import static amh.util.Constant.PlayerConstant.IDLE;
+import static amh.util.HelperMethods.CanMoveHere;
 
 public class Player extends Character {
 
-    private float x;
-    private float y;
     private BufferedImage[][] playerAnimations;
 
     // player animation
-    private static final byte PLAYER_IMG_WIDTH = 92;
-    private static final byte PLAYER_IMG_HEIGHT = 92;
+    public static final byte PLAYER_IMG_WIDTH = 92;
+    public static final byte PLAYER_IMG_HEIGHT = 92;
     private int aniSpeed = 10, aniTick, aniIndex;
     private int playerAction = CLIMBING;
     private boolean isPlayerMovingRight = true;
@@ -25,17 +27,19 @@ public class Player extends Character {
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
     private byte attackNumber = 0;
-    private byte hurtTime = 0;
+
+    private int [] levelData;
 
 
     public Player(float x, float y) {
-        super(x, y);
+        super(x, y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
         loadAnimations();
     }
 
     @Override
     public void update() {
         updatePosition();
+        updateHitBox();
         setAnimation();
         updateAnimation();
     }
@@ -62,6 +66,8 @@ public class Player extends Character {
             // Reset transform
             g2D.setTransform(g2D.getDeviceConfiguration().getDefaultTransform());
         }
+
+        drawHitBox(g);
     }
 
     @Override
@@ -76,6 +82,10 @@ public class Player extends Character {
         }
     }
 
+    public void loadLevelData(int[] levelData) {
+        this.levelData = levelData;
+    }
+
     private void updateAnimation() {
         aniTick++;
         if (aniTick > aniSpeed) {
@@ -84,7 +94,7 @@ public class Player extends Character {
             if (aniIndex >= GetSpriteAmount(playerAction)) {
                 attack = false;
                 aniIndex = 0;
-                hurtTime = 0;
+//                hurtTime = 0;
                 isHurt = false;
             }
         }
@@ -139,30 +149,51 @@ public class Player extends Character {
         moving = false;
         climbing = false;
 
-        if ((left && up) || (left && down)) {
-            x -= playerSpeed;
-            climbing = true;
-        } else if ((right && up) || (right && down)) {
-            x += playerSpeed;
-            climbing = true;
-        }
+        int futureX = (int) x;
+        int futureY = (int) y;
 
         if (left && !right && !down && !up && !isHurt) {
-            x -= (playerSpeed);
-            moving = true;
-            isPlayerMovingRight = false;
+            futureX = (int) (x - playerSpeed);
+            if (CanMoveHere(futureX, (int) y, levelData)) {
+                x = futureX;
+                moving = true;
+                isPlayerMovingRight = false;
+            }
         } else if (right && !left && !down && !up && !isHurt) {
-            x += (playerSpeed);
-            moving = true;
-            isPlayerMovingRight = true;
+            futureX = (int) (x + playerSpeed);
+            if (CanMoveHere(futureX, (int) y, levelData)) {
+                x = futureX;
+                moving = true;
+                isPlayerMovingRight = true;
+            }
         }
 
         if (up && !down && !right && !left) {
-            y -= playerSpeed;
-            climbing = true;
+            futureY = (int) (y - playerSpeed);
+            if (CanMoveHere((int) x, futureY, levelData)) {
+                y = futureY;
+                climbing = true;
+            }
         } else if (down && !up && !right && !left) {
-            y += playerSpeed;
-            climbing = true;
+            futureY = (int) (y + playerSpeed);
+            if (CanMoveHere((int) x, futureY, levelData)) {
+                y = futureY;
+                climbing = true;
+            }
+        }
+
+
+
+        // Ensure player doesn't go out of bounds
+        if (x < 0) {
+            x = 0;
+        } else if (x > Game.GAME_WIDTH - PLAYER_IMG_WIDTH) {
+            x = Game.GAME_WIDTH - PLAYER_IMG_WIDTH;
+        }
+        if (y < 0) {
+            y = 0;
+        } else if (y > Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT) {
+            y = Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT;
         }
     }
 
