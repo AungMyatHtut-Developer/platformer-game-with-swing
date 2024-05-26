@@ -1,8 +1,6 @@
 package amh.character;
 
-import amh.levels.LevelManager;
 import amh.platformer.Game;
-import amh.util.HelperMethods;
 import amh.util.SpriteLoader;
 
 import java.awt.*;
@@ -34,12 +32,13 @@ public class Player extends Character {
     public Player(float x, float y) {
         super(x, y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
         loadAnimations();
+//        initHitBox(width, height);
+        initHitBox(PLAYER_IMG_WIDTH - 42, PLAYER_IMG_HEIGHT - 22 , 20);
     }
 
     @Override
     public void update() {
         updatePosition();
-        updateHitBox();
         setAnimation();
         updateAnimation();
     }
@@ -49,6 +48,7 @@ public class Player extends Character {
         if (isPlayerMovingRight) {
             // Draw original image
             g.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
+            g.drawRect((int) x, (int) y,PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
         }
 
         if (!isPlayerMovingRight) {
@@ -61,13 +61,15 @@ public class Player extends Character {
             g2D.translate(-(int) x - PLAYER_IMG_WIDTH / 2, -(int) y - PLAYER_IMG_HEIGHT / 2);
 
             // Draw the flipped image
-            g2D.drawImage(playerAnimations[playerAction][aniIndex], (int) x, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
+            g2D.drawImage(playerAnimations[playerAction][aniIndex], (int) x + 40, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
+            g.drawRect((int) x, (int) y,PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
 
             // Reset transform
             g2D.setTransform(g2D.getDeviceConfiguration().getDefaultTransform());
         }
 
-        drawHitBox(g);
+        drawHitBox( g);
+
     }
 
     @Override
@@ -144,56 +146,120 @@ public class Player extends Character {
         aniIndex = 0;
     }
 
-    private void updatePosition() {
+//    private void updatePosition() {
+//
+//        moving = false;
+//        climbing = false;
+//
+//        int futureX = (int) x;
+//        int futureY = (int) y;
+//
+//        if (left && !right && !down && !up && !isHurt) {
+//            hitBox.x = (int) (x - playerSpeed);
+//            futureX = (int) (x - playerSpeed);
+//            if (CanMoveHere(futureX, (int) y, hitBox.width, hitBox.height, levelData)) {
+//                x = futureX;
+//                moving = true;
+//                isPlayerMovingRight = false;
+//            }
+//        } else if (right && !left && !down && !up && !isHurt) {
+//            hitBox.x = (int) (x + playerSpeed);
+//            futureX = (int) (x + playerSpeed);
+//            if (CanMoveHere(futureX, (int) y, hitBox.width - 42, hitBox.height, levelData)) {
+//                x = futureX;
+//                moving = true;
+//                isPlayerMovingRight = true;
+//            }
+//        }
+//
+//        if (up && !down && !right && !left) {
+//            hitBox.y = (int) (y - playerSpeed);
+//            futureY = (int) (y - playerSpeed);
+//            System.out.println("X value : "+ x + " HitBox X value : "+ hitBox.x+ " HitBox Y value : "+ hitBox.y+" HitBox.height : "+ hitBox.height);
+//            if (CanMoveHere((int) x, hitBox.y, hitBox.width, hitBox.height - 42, levelData)) {
+//                y = futureY;
+//                climbing = true;
+//            }
+//        } else if (down && !up && !right && !left) {
+//            hitBox.y = (int) (y + playerSpeed);
+//            futureY = (int) (y + playerSpeed);
+//            if (CanMoveHere((int) x, futureY, hitBox.width , hitBox.height, levelData)) {
+//                y = futureY;
+//                climbing = true;
+//            }
+//        }
+//
+//
+//
+//        // Ensure player doesn't go out of bounds
+//        if (hitBox.x < 0) {
+//            hitBox.x = 0;
+//            x = 0;
+//        } else if (hitBox.x > Game.GAME_WIDTH - PLAYER_IMG_WIDTH) {
+//            hitBox.x = Game.GAME_WIDTH - hitBox.width;
+//        }
+//        if (hitBox.y < 0) {
+//            y = 0;
+//        } else if (hitBox.y > Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT) {
+//            hitBox.y = Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT;
+//        }
+//    }
 
+    private void updatePosition() {
         moving = false;
         climbing = false;
 
-        int futureX = (int) x;
-        int futureY = (int) y;
+        float futureX = hitBox.x;
+        float futureY = hitBox.y;
 
         if (left && !right && !down && !up && !isHurt) {
-            futureX = (int) (x - playerSpeed);
-            if (CanMoveHere(futureX, (int) y, levelData)) {
+            futureX = hitBox.x - playerSpeed;
+            if (CanMoveHere((int) futureX, (int) hitBox.y, hitBox.width, hitBox.height, levelData)) {
                 x = futureX;
+                hitBox.x = (int) x;
                 moving = true;
                 isPlayerMovingRight = false;
             }
         } else if (right && !left && !down && !up && !isHurt) {
-            futureX = (int) (x + playerSpeed);
-            if (CanMoveHere(futureX, (int) y, levelData)) {
+            futureX = hitBox.x + playerSpeed;
+            if (CanMoveHere((int) futureX, (int) hitBox.y, hitBox.width, hitBox.height, levelData)) {
                 x = futureX;
+                hitBox.x = (int) x;
                 moving = true;
                 isPlayerMovingRight = true;
             }
         }
 
         if (up && !down && !right && !left) {
-            futureY = (int) (y - playerSpeed);
-            if (CanMoveHere((int) x, futureY, levelData)) {
-                y = futureY;
+            futureY = hitBox.y - playerSpeed;
+            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
+                y = futureY - 20;
+                hitBox.y = (int) y + 20;
                 climbing = true;
             }
         } else if (down && !up && !right && !left) {
-            futureY = (int) (y + playerSpeed);
-            if (CanMoveHere((int) x, futureY, levelData)) {
-                y = futureY;
+            futureY = hitBox.y + playerSpeed;
+            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
+                y = futureY - 20;
+                hitBox.y = (int) y + 20;
                 climbing = true;
             }
         }
 
-
-
         // Ensure player doesn't go out of bounds
-        if (x < 0) {
+        if (hitBox.x < 0) {
+            hitBox.x = 0;
             x = 0;
-        } else if (x > Game.GAME_WIDTH - PLAYER_IMG_WIDTH) {
-            x = Game.GAME_WIDTH - PLAYER_IMG_WIDTH;
+        } else if (hitBox.x > Game.GAME_WIDTH - hitBox.width) {
+            hitBox.x = Game.GAME_WIDTH - hitBox.width;
+            x = hitBox.x;
         }
-        if (y < 0) {
-            y = 0;
-        } else if (y > Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT) {
-            y = Game.GAME_HEIGHT - PLAYER_IMG_HEIGHT;
+        if (hitBox.y < 0) {
+            hitBox.y = 0;
+            y = -20;
+        } else if (hitBox.y > Game.GAME_HEIGHT - hitBox.height) {
+            hitBox.y = Game.GAME_HEIGHT - hitBox.height;
+            y = hitBox.y - 20;
         }
     }
 

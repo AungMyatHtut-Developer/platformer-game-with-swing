@@ -14,25 +14,29 @@ public abstract class Character {
         this.y = y;
         this.width = width;;
         this.height = height;
-        initHitBox();
     }
 
-    private void initHitBox() {
-        hitBox = new Rectangle((int) x, (int) y, width, height);
+    protected void initHitBox(int width, int height, int offset) {
+        hitBox = new Rectangle((int) x, (int) y + offset, width, height);
     }
 
-    protected void updateHitBox() {
-        hitBox.x = (int) this.x;
-        hitBox.y = (int) this.y;
-    }
+//    protected void updateHitBox() {
+//        hitBox.x = (int) this.x;
+//        hitBox.y = (int) this.y;
+//    }
 
     public Rectangle getHitBox() {
         return this.hitBox;
     }
 
+//    public void drawHitBox(int x, int y, Graphics graphics) {
+//        graphics.setColor(Color.red);
+//        graphics.drawRect((int) x, (int) y + 22, hitBox.width - 42, hitBox.height - 22);
+//    }
+
     public void drawHitBox(Graphics graphics) {
-        graphics.setColor(Color.blue);
-        graphics.drawRect((int) hitBox.x, (int) hitBox.y, hitBox.width, hitBox.height);
+        graphics.setColor(Color.red);
+        graphics.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
     public abstract void update();
