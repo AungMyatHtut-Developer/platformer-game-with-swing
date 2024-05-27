@@ -31,4 +31,5 @@ public class Main {
     Load Level Image Data and render the level data (used tiled to build levels)
   - Add HitBox for player and add collision and detection function
   - Make HitBox smaller and implement on actual collision and detection
+  - Add Jump Logic and gravity
  */

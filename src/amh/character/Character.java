@@ -16,8 +16,8 @@ public abstract class Character {
         this.height = height;
     }
 
-    protected void initHitBox(int width, int height, int offset) {
-        hitBox = new Rectangle((int) x, (int) y + offset, width, height);
+    protected void initHitBox(int width, int height, int yOffset) {
+        hitBox = new Rectangle((int) x, (int) y + yOffset, width, height);
     }
 
 //    protected void updateHitBox() {
@@ -35,8 +35,8 @@ public abstract class Character {
 //    }
 
     public void drawHitBox(Graphics graphics) {
-        graphics.setColor(Color.red);
-        graphics.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
+        graphics.setColor(Color.white);
+//        graphics.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
     public abstract void update();
