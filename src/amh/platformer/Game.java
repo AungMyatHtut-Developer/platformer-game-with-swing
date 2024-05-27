@@ -39,7 +39,7 @@ public class Game implements Runnable {
 
     private void initCharacters() {
         levelManager = new LevelManager(this, currentLevel);
-        player = new Player(200, 300);
+        player = new Player(76, 390);
         player.loadLevelData(levelManager.getCurrentLevelData());
     }
 
@@ -100,7 +100,6 @@ public class Game implements Runnable {
 
                 // Monitor the FPS and UPS every second
                 if (System.currentTimeMillis() - frameCountStartTime >= 1_000) {
-                    System.out.println("FPS: " + frameCount + " | UPS: " + updateCount);
                     frameCountStartTime = System.currentTimeMillis();
                     frameCount = 0;
                     updateCount = 0;

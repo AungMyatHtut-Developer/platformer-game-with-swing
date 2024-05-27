@@ -21,7 +21,6 @@ public class KeyboardHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Kep Press Work");
         switch (e.getKeyCode()) {
             //Right
             case KeyEvent.VK_D:
