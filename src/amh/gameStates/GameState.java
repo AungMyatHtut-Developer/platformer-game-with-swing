@@ -3,7 +3,9 @@ package amh.gameStates;
 public enum GameState {
 
     PLAYING,
-    MENU;
+    OPTION,
+    MENU,
+    QUIT;
 
     public static GameState state = MENU;
 }

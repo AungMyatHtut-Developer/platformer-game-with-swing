@@ -1,6 +1,16 @@
 package amh.util;
 
+
 public class Constant {
+
+    public class UI{
+        public class Buttons{
+            public static final int BUTTON_WIDTH_DEFAULT = 64;
+            public static final int BUTTON_HEIGHT_DEFAULT = 64;
+            public static final int BUTTON_WIDTH = (int) (BUTTON_WIDTH_DEFAULT ) * 2;
+            public static final int BUTTON_HEIGHT = (int) (BUTTON_HEIGHT_DEFAULT ) * 2;
+        }
+    }
 
     public static class PlayerConstant{
         public static final byte ATTACK_3 = 0;

@@ -50,6 +50,11 @@ public class Playing extends State implements StateMethods{
     }
 
     @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1)
           player.setAttack(true, (byte) 1);

@@ -5,9 +5,7 @@ import amh.platformer.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
-import static amh.util.Constant.Directions.*;
 
 public class KeyboardHandler implements KeyListener {
 

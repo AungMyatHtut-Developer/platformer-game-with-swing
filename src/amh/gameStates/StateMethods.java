@@ -9,6 +9,7 @@ public interface StateMethods {
     void render(Graphics g);
     void update();
 
+    void mousePressed(MouseEvent e);
     void mouseClicked(MouseEvent e);
     void mouseReleased(MouseEvent e);
     void mouseDrag(MouseEvent e);

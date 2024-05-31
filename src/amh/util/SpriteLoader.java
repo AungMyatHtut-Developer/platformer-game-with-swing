@@ -12,6 +12,8 @@ public class SpriteLoader {
 
     public static final String PLAYER_ATLAS = "myhero.png";
     public static final String TILESET = "Tileset.png";
+    public static final String MENU_BUTTON = "menu-button.png";
+    public static final String MENU_BACKGROUND = "menu.png";
 
     public static BufferedImage getSprite(String atlasName) {
         BufferedImage image = null;
