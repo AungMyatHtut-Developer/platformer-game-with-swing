@@ -20,23 +20,14 @@ public abstract class Character {
         hitBox = new Rectangle((int) x, (int) y + yOffset, width, height);
     }
 
-//    protected void updateHitBox() {
-//        hitBox.x = (int) this.x;
-//        hitBox.y = (int) this.y;
-//    }
-
     public Rectangle getHitBox() {
         return this.hitBox;
     }
 
-//    public void drawHitBox(int x, int y, Graphics graphics) {
-//        graphics.setColor(Color.red);
-//        graphics.drawRect((int) x, (int) y + 22, hitBox.width - 42, hitBox.height - 22);
-//    }
-
     public void drawHitBox(Graphics graphics) {
         graphics.setColor(Color.white);
-//        graphics.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
+        // currently hide hitbox
+        //graphics.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
     public abstract void update();

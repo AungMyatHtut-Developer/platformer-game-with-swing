@@ -1,5 +1,6 @@
 package amh.handler;
 
+import amh.gameStates.GameState;
 import amh.platformer.GamePanel;
 
 import java.awt.event.MouseEvent;
@@ -16,10 +17,14 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1)
-            gamePanel.getOurGame().getPlayer().setAttack(true, (byte) 1);
-        else if (e.getButton() == MouseEvent.BUTTON3)
-            gamePanel.getOurGame().getPlayer().setAttack(true, (byte) 2);
+        switch (GameState.state) {
+            case MENU: gamePanel.getOurGame().getMenu().mouseClicked(e);
+            break;
+            case PLAYING: gamePanel.getOurGame().getPlaying().mouseClicked(e);
+            break;
+            default:
+                break;
+        }
     }
 
     @Override

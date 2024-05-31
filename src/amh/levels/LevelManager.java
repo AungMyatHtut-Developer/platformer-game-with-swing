@@ -7,13 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class LevelManager {
-    private Game game;
     private BufferedImage[] levelSprite;
 
     private int[] currentLevel;
 
-    public LevelManager(Game game, byte levelNumber) {
-        this.game = game;
+    public LevelManager( byte levelNumber) {
         importLevelSprites();
         currentLevel = Level.getLevelData(levelNumber);
     }

@@ -32,4 +32,5 @@ public class Main {
   - Add HitBox for player and add collision and detection function
   - Make HitBox smaller and implement on actual collision and detection
   - Add Jump Logic and gravity
+  - Add Game State Parent Class and related Classes (This added features for Game Menu, Pause and Reset)
  */

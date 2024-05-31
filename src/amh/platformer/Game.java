@@ -1,23 +1,23 @@
 package amh.platformer;
 
 import amh.character.Player;
+import amh.gameStates.GameState;
+import amh.gameStates.Menu;
+import amh.gameStates.Playing;
 import amh.levels.LevelManager;
 
 import java.awt.*;
 
 public class Game implements Runnable {
 
-    private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private Player player;
-    private LevelManager levelManager;
-    private byte currentLevel = 1;
 
-    private boolean isGameRunning = true;
-    private boolean isPause = false;
     private final byte FPS = 60;
     private final short UPS = 120;
+
+    private Playing playing;
+    private Menu menu;
 
     public static final int DEFAULT_TILE_SIZE = 32;
     public static final float SCALE = 1.5f;
@@ -28,19 +28,18 @@ public class Game implements Runnable {
     public static final int GAME_HEIGHT = TOTAL_TILES_IN_HEIGHT * TILE_SIZE;
 
     public Game() {
-        initCharacters();
+        initClasses();
 
         gamePanel = new GamePanel(this);
-        gameWindow = new GameWindow(gamePanel);
+        new GameWindow(gamePanel);
         gamePanel.requestFocus(true);
 
         startGameLoop();
     }
 
-    private void initCharacters() {
-        levelManager = new LevelManager(this, currentLevel);
-        player = new Player(76, 390);
-        player.loadLevelData(levelManager.getCurrentLevelData());
+    private void initClasses() {
+        playing = new Playing(this);
+        menu = new Menu(this);
     }
 
     private void startGameLoop() {
@@ -49,13 +48,25 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        player.update();
-        levelManager.update(currentLevel);
+        switch (GameState.state) {
+            case PLAYING:
+                playing.update();
+                break;
+            case MENU:
+                menu.update();
+                break;
+        }
     }
 
-    public void render(Graphics graphics) {
-        levelManager.draw(graphics);
-        player.render(graphics);
+    public void render(Graphics g) {
+        switch (GameState.state) {
+            case PLAYING:
+                playing.render(g);
+                break;
+            case MENU:
+                menu.render(g);
+                break;
+        }
     }
 
     @Override
@@ -74,8 +85,8 @@ public class Game implements Runnable {
         double frameDelta = 0; // Time delta for frames
 
         // Main game loop
-        while (isGameRunning) {
-            if (!isPause) {
+        while (true) {
+            if (true) {
 
                 long currentTime = System.nanoTime(); // Current time in nanoseconds
 
@@ -111,36 +122,17 @@ public class Game implements Runnable {
 
     }
 
-    public void pauseTheGame() {
-        isPause = !isPause;
-        if (isPause) {
-            gamePanel.repaint();
-        }
-    }
-
-    public boolean isGamePaused() {
-        return isPause;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
     public void windowFocusLost() {
-        player.stopActions();
+        if(GameState.state == GameState.PLAYING)
+            getPlaying().getPlayer().stopActions();
     }
 
-    public void changeLevel() {
-        if (currentLevel == 1) {
-            currentLevel = 2;
-            levelManager.update(currentLevel);
-        } else {
-            currentLevel = 1;
-            levelManager.update(currentLevel);
-        }
-
-        player.loadLevelData(levelManager.getCurrentLevelData());
-
-        System.out.println(currentLevel);
+    public Playing getPlaying() {
+        return this.playing;
     }
+
+    public Menu getMenu() {
+        return this.menu;
+    }
+
 }

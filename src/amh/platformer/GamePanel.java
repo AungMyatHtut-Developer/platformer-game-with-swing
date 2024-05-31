@@ -34,12 +34,6 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (this.ourGame.isGamePaused()) {
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            g.setColor(Color.RED);
-            g.drawString("PAUSED", getWidth() /2 - 50, getHeight()/2);
-        }
-
         ourGame.render(g);
     }
 

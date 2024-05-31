@@ -38,7 +38,6 @@ public class Player extends Character {
     private boolean onGround = false;
     private boolean isJumping = false;
 
-
     public Player(float x, float y) {
         super(x, y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
         loadAnimations();
@@ -55,12 +54,7 @@ public class Player extends Character {
     @Override
     public void render(Graphics g) {
         if (isPlayerMovingRight) {
-            // Draw original image
-//            if(!climbing){
-//                y -= Y_OFFSET;
-//            }
             g.drawImage(playerAnimations[playerAction][aniIndex], (int) x - 10, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
-//            g.drawRect((int) x, (int) y,PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
         }
 
         if (!isPlayerMovingRight) {
@@ -72,12 +66,7 @@ public class Player extends Character {
             g2D.scale(-1, 1); // Flip horizontally
             g2D.translate(-(int) x - PLAYER_IMG_WIDTH / 2, -(int) y - PLAYER_IMG_HEIGHT / 2);
 
-//            if(!climbing){
-//                y -= Y_OFFSET;
-//            }
-            // Draw the flipped image
             g2D.drawImage(playerAnimations[playerAction][aniIndex], (int) x + 44, (int) y, PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT, null);
-//            g.drawRect((int) x, (int) y,PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT);
 
             // Reset transform
             g2D.setTransform(g2D.getDeviceConfiguration().getDefaultTransform());
@@ -186,21 +175,21 @@ public class Player extends Character {
             moving = true;
         }
 
-        if (up && !down && !right && !left) {
-            futureY = hitBox.y - playerSpeed;
-            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
-                y = futureY - Y_OFFSET;
-                hitBox.y = (int) y + Y_OFFSET;
-                climbing = true;
-            }
-        } else if (down && !up && !right && !left) {
-            futureY = hitBox.y + playerSpeed;
-            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
-                y = futureY - Y_OFFSET;
-                hitBox.y = (int) y + Y_OFFSET;
-                climbing = true;
-            }
-        }
+//        if (up && !down && !right && !left) {
+//            futureY = hitBox.y - playerSpeed;
+//            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
+//                y = futureY - Y_OFFSET;
+//                hitBox.y = (int) y + Y_OFFSET;
+//                climbing = true;
+//            }
+//        } else if (down && !up && !right && !left) {
+//            futureY = hitBox.y + playerSpeed;
+//            if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
+//                y = futureY - Y_OFFSET;
+//                hitBox.y = (int) y + Y_OFFSET;
+//                climbing = true;
+//            }
+//        }
 
 
         // Apply gravity
@@ -214,6 +203,7 @@ public class Player extends Character {
             onGround = false;
             isJumping = true;
         }
+
 
         // Check vertical collision
         if (CanMoveHere((int) hitBox.x, (int) futureY, hitBox.width, hitBox.height, levelData)) {
@@ -229,8 +219,6 @@ public class Player extends Character {
 
             y = hitBox.y - Y_OFFSET;
         }
-
-
 
 
         // Ensure player doesn't go out of bounds
@@ -280,10 +268,12 @@ public class Player extends Character {
         right = false;
         up = false;
         down = false;
+        jump = false;
     }
 
     public void setJump(boolean jump) {
         this.jump = jump;
     }
+
 
 }

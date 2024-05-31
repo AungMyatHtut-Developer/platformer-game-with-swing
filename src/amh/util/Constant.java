@@ -2,13 +2,6 @@ package amh.util;
 
 public class Constant {
 
-    public static class Directions{
-        public static final byte LEFT = 0;
-        public static final byte UP = 1;
-        public static final byte RIGHT = 2;
-        public static final byte DOWN = 3;
-    }
-
     public static class PlayerConstant{
         public static final byte ATTACK_3 = 0;
         public static final byte ATTACK_2 = 1;
