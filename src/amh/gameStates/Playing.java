@@ -68,21 +68,28 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (paused) {
+            pausedOverlay.mousePressed(e);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
-            if(e.getButton() == MouseEvent.BUTTON1)
+        if (!paused) {
+            if (e.getButton() == MouseEvent.BUTTON1)
                 player.setAttack(true, (byte) 1);
             else if (e.getButton() == MouseEvent.BUTTON3)
                 player.setAttack(true, (byte) 2);
+        }
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (paused) {
+            pausedOverlay.mouseReleased(e);
+        }
     }
 
     @Override
@@ -92,6 +99,9 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void mouseMove(MouseEvent e) {
+        if (paused) {
+            pausedOverlay.mouseMove(e);
+        }
     }
 
     @Override

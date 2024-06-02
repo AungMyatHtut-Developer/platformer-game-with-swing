@@ -17,7 +17,7 @@ public class SpriteLoader {
     public static final String MENU_BACKGROUND = "menu.png";
     public static final String MENU_PRETTY_BACKGROUND = "menu-background.png";
     public static final String PAUSED_BACKGROUND = "paused-background.png";
-    public static final String MUSIC_BUTTON = "volume-buttons.png";
+    public static final String MUSIC_BUTTON = "music-buttons.png";
 
     public static BufferedImage getSprite(String atlasName) {
         BufferedImage image = null;
