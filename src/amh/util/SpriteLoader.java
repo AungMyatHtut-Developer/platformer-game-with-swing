@@ -3,6 +3,7 @@ package amh.util;
 import amh.platformer.Game;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,6 +15,9 @@ public class SpriteLoader {
     public static final String TILESET = "Tileset.png";
     public static final String MENU_BUTTON = "menu-button.png";
     public static final String MENU_BACKGROUND = "menu.png";
+    public static final String MENU_PRETTY_BACKGROUND = "menu-background.png";
+    public static final String PAUSED_BACKGROUND = "paused-background.png";
+    public static final String MUSIC_BUTTON = "volume-buttons.png";
 
     public static BufferedImage getSprite(String atlasName) {
         BufferedImage image = null;
@@ -29,4 +33,5 @@ public class SpriteLoader {
         }
         return image;
     }
+
 }

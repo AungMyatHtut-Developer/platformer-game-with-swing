@@ -32,7 +32,7 @@ public class MenuButton {
 
     public void draw(Graphics g) {
         g.drawImage(menuButtons[index], xPos - xOffset, yPos, BUTTON_WIDTH  , BUTTON_HEIGHT , null);
-        g.drawRect(xPos - xOffset, yPos, BUTTON_WIDTH, BUTTON_HEIGHT);
+//        g.drawRect(xPos - xOffset, yPos, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     public void update(){

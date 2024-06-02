@@ -10,6 +10,13 @@ public class Constant {
             public static final int BUTTON_WIDTH = (int) (BUTTON_WIDTH_DEFAULT ) * 2;
             public static final int BUTTON_HEIGHT = (int) (BUTTON_HEIGHT_DEFAULT ) * 2;
         }
+
+        public class MusicButtons{
+            public static final int MUSIC_BUTTON_WIDTH_DEFAULT = 20;
+            public static final int MUSIC_BUTTON_HEIGHT_DEFAULT = 17;
+            public static final int MUSIC_BUTTON_WIDTH = (int) (MUSIC_BUTTON_WIDTH_DEFAULT ) * 3;
+            public static final int MUSIC_BUTTON_HEIGHT = (int) (MUSIC_BUTTON_HEIGHT_DEFAULT ) * 3;
+        }
     }
 
     public static class PlayerConstant{

@@ -34,4 +34,5 @@ public class Main {
   - Add Jump Logic and gravity
   - Add Game State Parent Class and related Classes (This added features for Game Menu, Pause and Reset)
   - Create Menu Background and Menu Button
+  - Add Pause Background and Pause feature on Playing
  */

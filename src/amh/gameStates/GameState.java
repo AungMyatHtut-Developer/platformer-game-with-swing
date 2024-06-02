@@ -3,6 +3,7 @@ package amh.gameStates;
 public enum GameState {
 
     PLAYING,
+    PAUSED,
     OPTION,
     MENU,
     QUIT;

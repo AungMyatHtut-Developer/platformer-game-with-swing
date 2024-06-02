@@ -50,6 +50,7 @@ public class Game implements Runnable {
     private void update() {
         switch (GameState.state) {
             case PLAYING:
+            case PAUSED:
                 playing.update();
                 break;
             case MENU:
@@ -65,6 +66,7 @@ public class Game implements Runnable {
     public void render(Graphics g) {
         switch (GameState.state) {
             case PLAYING:
+            case PAUSED:
                 playing.render(g);
                 break;
             case MENU:
